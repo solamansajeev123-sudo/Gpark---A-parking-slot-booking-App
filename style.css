@@ -4,12 +4,16 @@
     padding: 0;
     font-family: "DM Sans", sans-serif;
 }
+html{
+    scroll-behavior: smooth;
+}
 body{
-    height: 100vh;
+    min-height: 100vh;
     background-image: url();
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    color: #1b1b1f;
 }
 nav{
     background-color: white;
@@ -108,4 +112,199 @@ header{
     border: 3px solid rgb(159, 23, 222);
     color: rgb(159, 23, 222);
     background-color: white;
+}
+/* ---- shared section rules ---- */
+section{
+    scroll-margin-top: 66px;
+    padding: 110px 9vw;
+}
+.section-kicker{
+    color: rgb(159, 23, 222);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+}
+section h2{
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 2.4rem;
+    line-height: 1.25;
+    max-width: 14ch;
+    margin-bottom: 18px;
+}
+section p{
+    color: #55525c;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 55ch;
+}
+
+/* ---- about ---- */
+.about{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+}
+.about-copy{
+    flex: 1 1 420px;
+}
+.about-copy p + p{
+    margin-top: 16px;
+}
+.about-stats{
+    flex: 1 1 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    border-left: 3px solid rgb(159, 23, 222);
+    padding-left: 32px;
+}
+.stat{
+    display: flex;
+    flex-direction: column;
+}
+.stat-number{
+    font-family: "DM Serif Display", serif;
+    font-size: 2.8rem;
+    color: blueviolet;
+    line-height: 1;
+}
+.stat-label{
+    color: #55525c;
+    margin-top: 6px;
+    max-width: 26ch;
+}
+
+/* ---- services ---- */
+.services{
+    background-color: #F6F1FC;
+}
+.services h2{
+    max-width: 20ch;
+}
+.service-grid{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 36px;
+}
+.service-card{
+    background-color: #ffffff;
+    border-top: 3px solid blueviolet;
+    padding: 28px 24px 32px;
+}
+.service-card svg{
+    color: rgb(159, 23, 222);
+    margin-bottom: 18px;
+}
+.service-card h3{
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+.service-card p{
+    font-size: 0.98rem;
+    max-width: none;
+}
+
+/* ---- contact ---- */
+.contact{
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+}
+.contact-info{
+    flex: 1 1 380px;
+}
+.contact-details{
+    list-style: none;
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.contact-details li{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+.contact-details strong{
+    font-size: 0.85rem;
+    color: rgb(159, 23, 222);
+}
+.contact-details span{
+    color: #1b1b1f;
+    font-size: 1.02rem;
+}
+.contact-form{
+    flex: 1 1 380px;
+    display: flex;
+    flex-direction: column;
+    background-color: #F6F1FC;
+    padding: 36px;
+}
+.contact-form label{
+    font-size: 0.9rem;
+    margin-top: 16px;
+    margin-bottom: 6px;
+}
+.contact-form label:first-child{
+    margin-top: 0;
+}
+.contact-form input,
+.contact-form textarea{
+    border: 2px solid #ddd3ef;
+    background-color: #ffffff;
+    padding: 12px 14px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 1rem;
+    color: #1b1b1f;
+    resize: vertical;
+}
+.contact-form input:focus,
+.contact-form textarea:focus{
+    outline: none;
+    border-color: blueviolet;
+}
+.contact-form button{
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    align-self: flex-start;
+    cursor: pointer;
+    padding: 0 30px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 1rem;
+}
+
+/* ---- responsive ---- */
+@media(max-width: 900px){
+    .service-grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media(max-width: 640px){
+    section{
+        padding: 80px 7vw;
+    }
+    section h2{
+        font-size: 1.9rem;
+    }
+    .service-grid{
+        grid-template-columns: 1fr;
+    }
+    .about-stats{
+        border-left: none;
+        border-top: 3px solid rgb(159, 23, 222);
+        padding-left: 0;
+        padding-top: 24px;
+    }
 }

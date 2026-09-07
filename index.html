@@ -10,11 +10,11 @@
 <body>
     <nav>
         <ul>
-            <li id="logo"><a href="#">Gpark</a></li>
-            <li class="a" id="showmobile"><a href="#">Home</a></li>
-            <li class="a" id="showmobile"><a href="#">About Us</a></li>
-            <li class="a" id="showmobile"><a href="#">Services</a></li>
-            <li class="a" id="showmobile"><a href="#">Contact Us</a></li>
+            <li id="logo"><a href="#top">Gpark</a></li>
+            <li class="a" id="showmobile"><a href="#top">Home</a></li>
+            <li class="a" id="showmobile"><a href="#about">About Us</a></li>
+            <li class="a" id="showmobile"><a href="#services">Services</a></li>
+            <li class="a" id="showmobile"><a href="#contact">Contact Us</a></li>
             <li class="a" id="showmobile"><a href="#">Sign In</a></li>
             <li class="a" id="menu-icon"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill=""><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
         </ul>
@@ -22,20 +22,94 @@
     <nav>
         <ul id="sidebar">
             <li id="close-icon"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill=""><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
-            <li class="a"><a href="#">Home</a></li>
-            <li class="a"><a href="#">About</a></li>
-            <li class="a"><a href="#">Forum</a></li>
+            <li class="a"><a href="#top">Home</a></li>
+            <li class="a"><a href="#about">About</a></li>
+            <li class="a"><a href="#services">Services</a></li>
+            <li class="a"><a href="#contact">Contact</a></li>
             <li class="a"><a href="#">Sign In</a></li>
         </ul>
     </nav>
-    <header>
+    <header id="top">
     <h1>SMARTER PARKING. SIMPLER LIVING.</h1><br>
     <p>Find your space. Park with ease. Move on.</p>
     <div class="button-container">
-        <a class="learn-button" href="#">Learn More</a>
-        <a class="book-button" href="#">Book Now</a>
+        <a class="learn-button" href="#about">Learn More</a>
+        <a class="book-button" href="#contact">Book Now</a>
     </div>
     </header>
+
+    <section id="about" class="about">
+        <div class="about-copy">
+            <p class="section-kicker">About Gpark</p>
+            <h2>Built for cities that don't stop moving</h2>
+            <p>Gpark started with a simple frustration: circling the same block, watching the fuel gauge drop, while an open space sat two streets over the whole time. We connect drivers directly to real spaces in real time, so the search ends before it starts.</p>
+            <p>Today, thousands of drivers use Gpark every day to find, reserve, and pay for parking without ever slowing down to look for a sign.</p>
+        </div>
+        <div class="about-stats">
+            <div class="stat">
+                <span class="stat-number">40%</span>
+                <span class="stat-label">less time spent searching for a spot</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">partner lots and garages</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">live availability, every lot</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <p class="section-kicker">What we do</p>
+        <h2>Everything you need between here and parked</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="currentColor"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 351q131-113 200-207.5T749-540q0-119-76.5-197.5T480-816q-116 0-192.5 78.5T211-540q0 88 69 182.5T480-129Zm0 71Q319-192 239.5-311.5T160-540q0-150 96.5-243T480-876q127 0 223.5 93T800-540q0 110-79.5 229.5T480-58Z"/></svg>
+                <h3>Real-Time Spot Finder</h3>
+                <p>See open spaces near you the moment they open up, updated live as drivers come and go.</p>
+            </div>
+            <div class="service-card">
+                <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="currentColor"><path d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Z"/></svg>
+                <h3>Reserved Parking</h3>
+                <p>Book a guaranteed space ahead of time, from a few minutes out to next week.</p>
+            </div>
+            <div class="service-card">
+                <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="currentColor"><path d="M160-80q-33 0-56.5-23.5T80-160v-480q0-33 23.5-56.5T160-720h80v-80q0-33 23.5-56.5T320-880h320q33 0 56.5 23.5T720-800v80h80q33 0 56.5 23.5T880-640v480q0 33-23.5 56.5T800-80H160Zm160-640h320v-80H320v80ZM160-160h640v-480H160v480Zm320-40q66 0 113-47t47-113q0-66-47-113t-113-47q-66 0-113 47t-47 113q0 66 47 113t113 47Z"/></svg>
+                <h3>Contactless Entry</h3>
+                <p>Drive in and out without stopping for a ticket. Your plate is your pass.</p>
+            </div>
+            <div class="service-card">
+                <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="currentColor"><path d="M80-240v-80h800v80H80Zm40-120v-260q0-33 23.5-56.5T200-700h20l35-105q8-23 27.5-36t42.5-13h310q23 0 42.5 13t27.5 36l35 105h20q33 0 56.5 23.5T840-620v260H760v-60H200v60H120Zm120-160h480l-40-120H280l-40 120Zm-40 60v100-100Zm560 0v100-100Z"/></svg>
+                <h3>In-App Payments</h3>
+                <p>One tap covers the whole visit. No meters, no change, no paper tickets to lose.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="contact-info">
+            <p class="section-kicker">Get in touch</p>
+            <h2>Questions before you park?</h2>
+            <p>Our team is around most days to help with bookings, partner lots, or anything else on your mind.</p>
+            <ul class="contact-details">
+                <li><strong>Email</strong><span>hello@gpark.com</span></li>
+                <li><strong>Phone</strong><span>(555) 019-2044</span></li>
+                <li><strong>Office</strong><span>420 Meridian Ave, Suite 210</span></li>
+            </ul>
+        </div>
+        <form class="contact-form" id="contact-form">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="How can we help?" required></textarea>
+            <button type="submit" class="book-button">Send Message</button>
+        </form>
+    </section>
+
     <script src="index.js"></script>
 </body>
 </html>
