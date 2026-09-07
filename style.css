@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display:ital@0;1&family=DM+Serif+Text:ital@0;1&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "DM Sans", sans-serif;
+}
+body{
+    height: 100vh;
+    background-image: url();
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+nav{
+    background-color: white;
+}
+ul{
+    box-shadow: 10px 20px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    list-style:none;
+}
+li{
+    height: 50px;
+}
+a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: black;
+    padding: 0 30px;
+}
+#logo{
+    margin-right: auto;
+}
+.a:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+#sidebar{
+    top: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+}
+#sidebar li{
+    width: 100%;
+}
+@media(max-width:800px) {
+    #showmobile{
+        display: none;
+    }
+}
+@media(max-width:500px){
+    #sidebar{
+        width: 100%;
+    }
+}
+header{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    min-height: 600px;
+    max-height: 800px;
+    padding:50px;
+    flex-direction: column;
+}
+.button-container{
+    display: flex;
+    flex-direction: row;
+    padding-top: 30px;
+    column-gap: 1em;
+}
+.book-button{
+    border: 3px solid rgb(159, 23, 222);
+    color: rgb(159, 23, 222);
+    background-color: white;
+    font-weight: bold;
+    height: 50px;
+}
+.book-button:hover{
+    border: 3px solid blueviolet;;
+    background-color: blueviolet;
+    color: white;
+}
+.learn-button{
+    border: 3px solid blueviolet;;
+    background-color: blueviolet;
+    color: white;
+    font-weight: bold;
+    height: 50px;
+}
+.learn-button:hover{
+    border: 3px solid rgb(159, 23, 222);
+    color: rgb(159, 23, 222);
+    background-color: white;
+}
