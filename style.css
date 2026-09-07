@@ -125,7 +125,6 @@ section{
     margin-bottom: 14px;
 }
 section h2{
-    font-family: "DM Serif Display", serif;
     font-weight: 400;
     font-size: 2.4rem;
     line-height: 1.25;
@@ -167,7 +166,6 @@ section p{
     flex-direction: column;
 }
 .stat-number{
-    font-family: "DM Serif Display", serif;
     font-size: 2.8rem;
     color: blueviolet;
     line-height: 1;
@@ -201,7 +199,6 @@ section p{
     margin-bottom: 18px;
 }
 .service-card h3{
-    font-family: "DM Serif Display", serif;
     font-weight: 400;
     font-size: 1.25rem;
     margin-bottom: 10px;
@@ -262,7 +259,6 @@ section p{
     border: 2px solid #ddd3ef;
     background-color: #ffffff;
     padding: 12px 14px;
-    font-family: "DM Sans", sans-serif;
     font-size: 1rem;
     color: #1b1b1f;
     resize: vertical;
@@ -281,7 +277,6 @@ section p{
     align-self: flex-start;
     cursor: pointer;
     padding: 0 30px;
-    font-family: "DM Sans", sans-serif;
     font-size: 1rem;
 }
 
