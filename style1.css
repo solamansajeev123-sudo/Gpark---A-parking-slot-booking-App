@@ -21,9 +21,9 @@ body{
     width: 450px;
     border-radius: 8px;
     box-shadow: 3px 2px 2px 4px rgba(0, 0, 0,0.1);
-    background-color: #FFFFFF;
-    backdrop-filter: blur(10px) saturate(180%);
-    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    background-color: transparent;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 input{
     width: 350px;
