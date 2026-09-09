@@ -3,22 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In</title>
+    <title>Log In | GPark</title>
     <link rel="icon" href="images/image.png">
     <link rel="stylesheet" href="style1.css">
 </head>
 <body>
-    <main>
-        <form action="">
-        <div class="form-container">
-                <label id="login-header">Login</label>
-                <input type="text" placeholder="   Username">
-                <input type="password" placeholder="   Password">
-                <button id="login-button">Login</button>
-                <label>Don't have an Account? <a href="SignUp.html">Register</a></label>
-            
-        </div>
-        </form>
+    <main class="auth-shell">
+        <section class="auth-panel brand-panel">
+            <div class="brand-mark">GPark</div>
+            <h1>Welcome back.<br>Continue your trip.</h1>
+            <p>
+                Access your reservations, track parking availability, and manage your bookings effortlessly.
+            </p>
+
+            <ul class="feature-list">
+                <li>Fast booking access</li>
+                <li>Saved preferences</li>
+                <li>Secure account protection</li>
+            </ul>
+        </section>
+
+        <section class="auth-panel form-panel">
+            <div class="form-header">
+                <span class="eyebrow">Member login</span>
+                <h2>Sign in</h2>
+                <p>Use your account to continue.</p>
+            </div>
+
+            <form action="" class="auth-form">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username">
+                </div>
+
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+
+                <button type="submit">Login</button>
+
+                <p class="switch-text">
+                    Don’t have an account?
+                    <a href="SignUp.html">Create one</a>
+                </p>
+            </form>
+        </section>
     </main>
 </body>
 </html>
