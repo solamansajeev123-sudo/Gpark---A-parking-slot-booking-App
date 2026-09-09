@@ -156,11 +156,22 @@
             </div>
         </main>
     </div>
-    <div class="modal-container">
+    <div class="modal-container" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modal-header" aria-hidden="true">
         <div class="modal">
-            <h2 id="modal-header">Enter the details</h2>
-            <input type="text" placeholder="Vehicle Number"><br>
+            <div class="modal-heading">
+                <div>
+                    <span class="eyebrow">Almost there</span>
+                    <h2 id="modal-header">Complete your booking</h2>
+                    <p>Tell us a little about your vehicle to reserve this space.</p>
+                </div>
+                <button class="close-modal" id="closeModal" type="button" aria-label="Close booking details">&times;</button>
+            </div>
+            <div class="form-field">
+                <label for="vehicleNumber">Vehicle number</label>
+                <input id="vehicleNumber" type="text" placeholder="e.g. KA 01 AB 1234">
+            </div>
             <div class="radio-group">
+                <span class="field-label">Vehicle type</span>
                 <label class="radio-option">
                 <input type="radio" name="vehicleType" value="two-wheeler" checked>
                 <span>Two-wheeler</span>
@@ -170,14 +181,23 @@
                 <span>Four-wheeler</span>
                 </label>
             </div>
-            <input type="text" placeholder="Vehicle Model"><br>
-            <select name="duration" id="duration">
+            <div class="form-field">
+                <label for="vehicleModel">Vehicle model</label>
+                <input id="vehicleModel" type="text" placeholder="e.g. Honda City">
+            </div>
+            <div class="form-field">
+                <label for="duration">Parking duration</label>
+                <select name="duration" id="duration">
                 <option value="0.5">Half an Hour</option>
                 <option value="1">One Hour</option>
                 <option value="2">Two Hours</option>
                 <option value="3">Three Hours</option>
-            </select>
-            <a href="ticket.html"><button id="book-button">Book Now</button></a>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn secondary-btn" id="cancelBooking" type="button">Cancel</button>
+                <button class="modal-btn primary-modal-btn" id="book-button" type="button">Book Now</button>
+            </div>
         </div>
     </div>
     <script>
@@ -186,6 +206,10 @@
         const userAvatar = document.getElementById('userAvatar');
         const selectionStatus = document.getElementById('selectionStatus');
         const reserveButton = document.getElementById('reserveButton');
+        const bookingModal = document.getElementById('bookingModal');
+        const closeModalButton = document.getElementById('closeModal');
+        const cancelBookingButton = document.getElementById('cancelBooking');
+        const bookButton = document.getElementById('book-button');
 
         async function fetchCurrentUser() {
             const apiUrls = [
@@ -237,24 +261,87 @@
         selectedSlots.forEach((button) => {
             button.addEventListener('click', () => {
                 const isSelected = button.classList.contains('selected');
-                button.classList.toggle('selected', !isSelected);
-                const selectedCount = document.querySelectorAll('.block-container button.selected').length;
-                selectionStatus.textContent = selectedCount === 0
-                    ? 'No slot selected'
-                    : `${selectedCount} slot${selectedCount === 1 ? '' : 's'} selected`;
-                reserveButton.disabled = selectedCount === 0;
+                selectedSlots.forEach((slot) => slot.classList.remove('selected'));
+                if (!isSelected) {
+                    button.classList.add('selected');
+                }
+
+                const selectedSlot = document.querySelector('.block-container button.selected');
+                selectionStatus.textContent = selectedSlot
+                    ? `${selectedSlot.value} selected`
+                    : 'No slot selected';
+                reserveButton.disabled = !selectedSlot;
             });
         });
 
-        reserveButton.addEventListener('click', () => {
-            selectionStatus.textContent = 'Select a slot to continue';
-        });
-
-
-        reserveButton.onclick=function(){
-            const modal=document.querySelector(".modal-container");
-            modal.style.display='flex';
+        function openBookingModal() {
+            bookingModal.style.display = 'flex';
+            bookingModal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+            document.getElementById('vehicleNumber').focus();
         }
+
+        function closeBookingModal() {
+            bookingModal.style.display = 'none';
+            bookingModal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+            reserveButton.focus();
+        }
+
+        reserveButton.addEventListener('click', openBookingModal);
+        closeModalButton.addEventListener('click', closeBookingModal);
+        cancelBookingButton.addEventListener('click', closeBookingModal);
+        bookButton.addEventListener('click', async () => {
+            const selectedSlot = document.querySelector('.block-container button.selected');
+            const vehicleNumber = document.getElementById('vehicleNumber').value.trim();
+            const vehicleModel = document.getElementById('vehicleModel').value.trim();
+            const vehicleType = document.querySelector('input[name="vehicleType"]:checked')?.value;
+            const duration = document.getElementById('duration').value;
+
+            if (!selectedSlot || !vehicleNumber || !vehicleModel || !vehicleType) {
+                alert('Please complete all booking details.');
+                return;
+            }
+
+            bookButton.disabled = true;
+
+            try {
+                const response = await fetch('http://localhost/g_park/add_booking.php', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        booking_id: vehicleNumber,
+                        slot: selectedSlot.value,
+                        vehicle_type: vehicleType === 'two-wheeler' ? 1 : 2,
+                        vehicle_model: vehicleModel,
+                        duration: Number.parseFloat(duration)
+                    })
+                });
+
+                const result = await response.json();
+                if (!response.ok || !result.success) {
+                    throw new Error(result.message || 'Unable to create the booking.');
+                }
+
+                window.location.href = 'ticket.html';
+            } catch (error) {
+                alert(error.message);
+                bookButton.disabled = false;
+            }
+        });
+        bookingModal.addEventListener('click', (event) => {
+            if (event.target === bookingModal) {
+                closeBookingModal();
+            }
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && bookingModal.getAttribute('aria-hidden') === 'false') {
+                closeBookingModal();
+            }
+        });
     </script>
 </body>
 </html>
