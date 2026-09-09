@@ -38,7 +38,8 @@
 
                 <div class="input-group">
                     <label for="login-password">Password</label>
-                    <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                    <input type="password" id="login-password" name="password" placeholder="Enter your password" aria-describedby="password-error">
+                    <p class="field-error" id="password-error" role="alert" aria-live="polite"></p>
                 </div>
 
                 <button type="submit">Login</button>
@@ -50,5 +51,35 @@
             </form>
         </section>
     </main>
+
+    <script>
+        const loginForm = document.querySelector('.auth-form');
+        const passwordInput = document.querySelector('#login-password');
+        const passwordError = document.querySelector('#password-error');
+
+        function validatePassword() {
+            const password = passwordInput.value;
+            let message = '';
+
+            if (password.length < 5) {
+                message = 'Use at least 5 characters.';
+            } else if (!/[^\p{L}\p{N}\s]/u.test(password)) {
+                message = 'Include at least 1 special character.';
+            }
+
+            passwordError.textContent = message;
+            passwordError.hidden = !message;
+            passwordInput.classList.toggle('input-error', Boolean(message));
+
+            return !message;
+        }
+
+        loginForm.addEventListener('submit', (event) => {
+            if (!validatePassword()) {
+                event.preventDefault();
+                passwordInput.focus();
+            }
+        });
+    </script>
 </body>
 </html>

@@ -189,6 +189,18 @@ body {
     background: #fff;
 }
 
+.field-error {
+    color: #c2415a;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-top: -2px;
+}
+
+.input-group input.input-error {
+    border-color: #e26a7a;
+    box-shadow: 0 0 0 4px rgba(226, 106, 122, 0.12);
+}
+
 .auth-form button {
     width: 100%;
     height: 54px;
