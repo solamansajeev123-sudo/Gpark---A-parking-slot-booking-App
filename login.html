@@ -38,7 +38,12 @@
 
                 <div class="input-group">
                     <label for="login-password">Password</label>
-                    <input type="password" id="login-password" name="password" placeholder="Enter your password" aria-describedby="password-error">
+                    <div class="password-field">
+                        <input type="password" id="login-password" name="password" placeholder="Enter your password" aria-describedby="password-error">
+                        <button type="button" class="password-toggle" aria-label="Show password" aria-pressed="false" hidden>
+                            <span class="eye-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
                     <p class="field-error" id="password-error" role="alert" aria-live="polite"></p>
                 </div>
 
@@ -59,6 +64,32 @@
         const passwordInput = document.querySelector('#login-password');
         const passwordError = document.querySelector('#password-error');
         const loginMessage = document.getElementById('loginMessage');
+
+        document.querySelectorAll('.password-field').forEach((field) => {
+            const input = field.querySelector('input');
+            const toggle = field.querySelector('.password-toggle');
+
+            const updateToggleVisibility = () => {
+                const hasPassword = input.value.length > 0;
+                toggle.hidden = !hasPassword;
+
+                if (!hasPassword && input.type === 'text') {
+                    input.type = 'password';
+                    toggle.setAttribute('aria-label', 'Show password');
+                    toggle.setAttribute('aria-pressed', 'false');
+                }
+            };
+
+            input.addEventListener('input', updateToggleVisibility);
+            updateToggleVisibility();
+
+            toggle.addEventListener('click', () => {
+                const isVisible = input.type === 'text';
+                input.type = isVisible ? 'password' : 'text';
+                toggle.setAttribute('aria-label', isVisible ? 'Show password' : 'Hide password');
+                toggle.setAttribute('aria-pressed', String(!isVisible));
+            });
+        });
 
         function validatePassword() {
             const password = passwordInput.value;
@@ -139,6 +170,7 @@
                     throw new Error(result.message || 'Login failed.');
                 }
 
+                localStorage.setItem('gparkUser', JSON.stringify(result.user));
                 showLoginSuccess('Login successful. Opening your bookings...');
                 setTimeout(() => {
                     window.location.href = 'book.html';
