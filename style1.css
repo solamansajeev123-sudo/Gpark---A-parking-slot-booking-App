@@ -221,6 +221,41 @@ body {
     box-shadow: 0 20px 32px rgba(109, 94, 252, 0.34);
 }
 
+.login-snackbar {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    z-index: 10;
+    width: min(420px, calc(100% - 32px));
+    padding: 14px 18px;
+    border: 1px solid #fecaca;
+    border-left: 4px solid #dc2626;
+    border-radius: 10px;
+    background: #fff1f2;
+    color: #b91c1c;
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 0 12px 28px rgba(127, 29, 29, 0.2);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 16px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.login-snackbar.is-visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.login-snackbar.is-success {
+    border-color: #bbf7d0;
+    border-left-color: #16a34a;
+    background: #f0fdf4;
+    color: #15803d;
+    box-shadow: 0 12px 28px rgba(22, 101, 52, 0.2);
+}
+
 .switch-text {
     text-align: center;
     color: var(--muted);
