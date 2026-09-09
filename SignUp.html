@@ -46,13 +46,23 @@
 
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Create a password" aria-describedby="password-error" required>
+                    <div class="password-field">
+                        <input type="password" id="password" name="password" placeholder="Create a password" aria-describedby="password-error" required>
+                        <button type="button" class="password-toggle" aria-label="Show password" aria-pressed="false" hidden>
+                            <span class="eye-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
                     <p class="field-error" id="password-error" role="alert" aria-live="polite"></p>
                 </div>
 
                 <div class="input-group">
                     <label for="confirm_password">Confirm Password</label>
-                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter your password" required>
+                    <div class="password-field">
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter your password" required>
+                        <button type="button" class="password-toggle" aria-label="Show password" aria-pressed="false" hidden>
+                            <span class="eye-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
                 </div>
 
                 <button type="submit">Create Account</button>
@@ -73,6 +83,32 @@
         const confirmPasswordInput = document.querySelector('#confirm_password');
         const passwordError = document.querySelector('#password-error');
         const signupMessage = document.getElementById('signupMessage');
+
+        document.querySelectorAll('.password-field').forEach((field) => {
+            const input = field.querySelector('input');
+            const toggle = field.querySelector('.password-toggle');
+
+            const updateToggleVisibility = () => {
+                const hasPassword = input.value.length > 0;
+                toggle.hidden = !hasPassword;
+
+                if (!hasPassword && input.type === 'text') {
+                    input.type = 'password';
+                    toggle.setAttribute('aria-label', 'Show password');
+                    toggle.setAttribute('aria-pressed', 'false');
+                }
+            };
+
+            input.addEventListener('input', updateToggleVisibility);
+            updateToggleVisibility();
+
+            toggle.addEventListener('click', () => {
+                const isVisible = input.type === 'text';
+                input.type = isVisible ? 'password' : 'text';
+                toggle.setAttribute('aria-label', isVisible ? 'Show password' : 'Hide password');
+                toggle.setAttribute('aria-pressed', String(!isVisible));
+            });
+        });
 
         function validatePassword() {
             const password = passwordInput.value;

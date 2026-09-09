@@ -178,6 +178,19 @@ body {
     transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
+.password-field {
+    position: relative;
+}
+
+.password-field input {
+    padding-right: 52px;
+}
+
+.password-field input::-ms-reveal,
+.password-field input::-ms-clear {
+    display: none;
+}
+
 .input-group input::placeholder {
     color: #8aa0b4;
 }
@@ -219,6 +232,62 @@ body {
 .auth-form button:hover {
     transform: translateY(-1px);
     box-shadow: 0 20px 32px rgba(109, 94, 252, 0.34);
+}
+
+.auth-form .password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    display: grid;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: #71839a;
+    cursor: pointer;
+    transform: translateY(-50%);
+    box-shadow: none;
+}
+
+.auth-form .password-toggle[hidden] {
+    display: none;
+}
+
+.auth-form .password-toggle:hover {
+    background: transparent;
+    color: var(--primary-dark);
+    transform: translateY(-50%);
+    box-shadow: none;
+}
+
+.auth-form .password-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.eye-icon {
+    position: relative;
+    display: block;
+    width: 18px;
+    height: 12px;
+    border: 2px solid currentColor;
+    border-radius: 75% 15%;
+    transform: rotate(45deg);
+}
+
+.eye-icon::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    content: "";
+    transform: translate(-50%, -50%);
 }
 
 .login-snackbar {
