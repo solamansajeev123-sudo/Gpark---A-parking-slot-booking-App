@@ -256,6 +256,57 @@
         });
 
         const selectedSlots = document.querySelectorAll('.block-container button');
+
+        async function loadOccupiedSlots() {
+            const apiUrls = ['http://localhost/g_park/get_booking.php'];
+
+            for (const apiUrl of apiUrls) {
+                try {
+                    const response = await fetch(`${apiUrl}?_=${Date.now()}`, {
+                        credentials: 'include',
+                        cache: 'no-store'
+                    });
+                    const result = await response.json();
+
+                    if (!response.ok || !result.success || !Array.isArray(result.occupied_slots)) {
+                        throw new Error(result.message || 'Unable to load occupied slots.');
+                    }
+
+                    const occupiedSlots = new Set(result.occupied_slots.map((booking) => {
+                        const slot = typeof booking === 'object' ? booking.slot : booking;
+                        return String(slot || '').trim().toUpperCase();
+                    }));
+                    selectedSlots.forEach((button) => {
+                        const isOccupied = occupiedSlots.has(button.value.trim().toUpperCase());
+                        button.disabled = isOccupied;
+                        button.classList.toggle('occupied', isOccupied);
+                        if (isOccupied) {
+                            button.classList.remove('selected');
+                            button.setAttribute('aria-label', `${button.value} occupied`);
+                        } else {
+                            button.removeAttribute('aria-label');
+                        }
+                    });
+
+                    const selectedSlot = document.querySelector('.block-container button.selected');
+                    selectionStatus.textContent = selectedSlot
+                        ? `${selectedSlot.value} selected`
+                        : 'No slot selected';
+                    reserveButton.disabled = !selectedSlot;
+                    return true;
+                } catch (error) {
+                    if (apiUrl === apiUrls[apiUrls.length - 1]) {
+                        console.error('Unable to load occupied slots:', error);
+                        alert('Unable to load occupied parking slots. Please refresh and try again.');
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        loadOccupiedSlots();
+
         selectedSlots.forEach((button) => {
             button.addEventListener('click', () => {
                 const isSelected = button.classList.contains('selected');
@@ -333,6 +384,7 @@
 
                 alert(`Booking ${bookingId} created successfully.`);
                 closeBookingModal();
+                await loadOccupiedSlots();
             } catch (error) {
                 alert(error.message);
                 bookButton.disabled = false;
