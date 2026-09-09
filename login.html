@@ -139,6 +139,7 @@
                     throw new Error(result.message || 'Login failed.');
                 }
 
+                localStorage.setItem('gparkUser', JSON.stringify(result.user));
                 showLoginSuccess('Login successful. Opening your bookings...');
                 setTimeout(() => {
                     window.location.href = 'book.html';

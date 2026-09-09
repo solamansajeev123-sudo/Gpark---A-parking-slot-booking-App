@@ -3,113 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Now!!</title>
+    <title>Book a Spot | GPark</title>
     <link rel="stylesheet" href="style2.css">
     <link rel="icon" href="images/image.png">
 </head>
 <body>
-    <h1>Parking Layout</h1>
-    <div class="parking-layout">
-    <div class="block-container">
-        <label class="block-label">A-Block</label>
-    <div class="a-block">
-        <button value="A1">A1</button>
-        <button value="A2">A2</button>
-        <button value="A3">A3</button>
-        <button value="A4">A4</button>
-        <button value="A5">A5</button>
-        <button value="A6">A6</button>
-        <button value="A7">A7</button>
-        <button value="A8">A8</button>
-        <button value="A9">A9</button>
-        <button value="A10">A10</button>
-        <button value="A11">A11</button>
-        <button value="A12">A12</button>
-        <button value="A13">A13</button>
-        <button value="A14">A14</button>
-        <button value="A15">A15</button>
-        <button value="A16">A16</button>
-        <button value="A17">A17</button>
-        <button value="A18">A18</button>
-        <button value="A19">A19</button>
-        <button value="A20">A20</button>
+    <div class="page-shell">
+        <aside class="profile-panel">
+            <div class="brand-block">
+                <span class="brand-pill">GPark</span>
+                <p>Booking portal</p>
+            </div>
+
+            <div class="user-card">
+                <div class="avatar" id="userAvatar">?</div>
+                <div>
+                    <span class="label">Logged in user</span>
+                    <h2 id="userName">Loading...</h2>
+                    <p id="userEmail">Loading...</p>
+                </div>
+            </div>
+
+            <div class="account-status">
+                <span class="status-dot"></span>
+                <span>Account session active</span>
+            </div>
+        </aside>
+
+        <main class="booking-panel">
+            <header class="booking-header">
+                <div>
+                    <span class="eyebrow">Parking layout</span>
+                    <h1>Select your slot</h1>
+                    <p class="header-help">Choose an available space for your visit.</p>
+                </div>
+                <div class="booking-action">
+                    <span id="selectionStatus" class="selection-status">No slot selected</span>
+                    <button id="reserveButton" class="primary-btn" type="button" disabled>Reserve now</button>
+                </div>
+            </header>
+
+            <div class="legend">
+                <span><i class="dot open"></i> Available</span>
+                <span><i class="dot selected-legend"></i> Selected</span>
+                <span><i class="dot busy"></i> Occupied</span>
+            </div>
+
+            <div class="parking-layout">
+                <div class="block-container">
+                    <label class="block-label">A-Block</label>
+                    <div class="a-block">
+                        <button value="A1">A1</button>
+                        <button value="A2">A2</button>
+                        <button value="A3">A3</button>
+                        <button value="A4">A4</button>
+                        <button value="A5">A5</button>
+                        <button value="A6">A6</button>
+                        <button value="A7">A7</button>
+                        <button value="A8">A8</button>
+                        <button value="A9">A9</button>
+                        <button value="A10">A10</button>
+                        <button value="A11">A11</button>
+                        <button value="A12">A12</button>
+                        <button value="A13">A13</button>
+                        <button value="A14">A14</button>
+                        <button value="A15">A15</button>
+                        <button value="A16">A16</button>
+                        <button value="A17">A17</button>
+                        <button value="A18">A18</button>
+                        <button value="A19">A19</button>
+                        <button value="A20">A20</button>
+                    </div>
+                </div>
+
+                <div class="block-container">
+                    <label class="block-label">B-Block</label>
+                    <div class="b-block">
+                        <button value="B1">B1</button>
+                        <button value="B2">B2</button>
+                        <button value="B3">B3</button>
+                        <button value="B4">B4</button>
+                        <button value="B5">B5</button>
+                        <button value="B6">B6</button>
+                        <button value="B7">B7</button>
+                        <button value="B8">B8</button>
+                        <button value="B9">B9</button>
+                        <button value="B10">B10</button>
+                        <button value="B11">B11</button>
+                        <button value="B12">B12</button>
+                        <button value="B13">B13</button>
+                        <button value="B14">B14</button>
+                        <button value="B15">B15</button>
+                        <button value="B16">B16</button>
+                        <button value="B17">B17</button>
+                        <button value="B18">B18</button>
+                        <button value="B19">B19</button>
+                        <button value="B20">B20</button>
+                    </div>
+                </div>
+
+                <div class="block-container">
+                    <label class="block-label">C-Block</label>
+                    <div class="c-block">
+                        <button value="C1">C1</button>
+                        <button value="C2">C2</button>
+                        <button value="C3">C3</button>
+                        <button value="C4">C4</button>
+                        <button value="C5">C5</button>
+                        <button value="C6">C6</button>
+                        <button value="C7">C7</button>
+                        <button value="C8">C8</button>
+                        <button value="C9">C9</button>
+                        <button value="C10">C10</button>
+                        <button value="C11">C11</button>
+                        <button value="C12">C12</button>
+                        <button value="C13">C13</button>
+                        <button value="C14">C14</button>
+                        <button value="C15">C15</button>
+                        <button value="C16">C16</button>
+                        <button value="C17">C17</button>
+                        <button value="C18">C18</button>
+                        <button value="C19">C19</button>
+                        <button value="C20">C20</button>
+                    </div>
+                </div>
+
+                <div class="block-container">
+                    <label class="block-label">D-Block</label>
+                    <div class="d-block">
+                        <button value="D1">D1</button>
+                        <button value="D2">D2</button>
+                        <button value="D3">D3</button>
+                        <button value="D4">D4</button>
+                        <button value="D5">D5</button>
+                        <button value="D6">D6</button>
+                        <button value="D7">D7</button>
+                        <button value="D8">D8</button>
+                        <button value="D9">D9</button>
+                        <button value="D10">D10</button>
+                        <button value="D11">D11</button>
+                        <button value="D12">D12</button>
+                        <button value="D13">D13</button>
+                        <button value="D14">D14</button>
+                        <button value="D15">D15</button>
+                        <button value="D16">D16</button>
+                        <button value="D17">D17</button>
+                        <button value="D18">D18</button>
+                        <button value="D19">D19</button>
+                        <button value="D20">D20</button>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-    </div>
-    <div class="block-container">
-        <label class="block-label">B-Block</label>
-    <div class="b-block">
-        <button value="B1">B1</button>
-        <button value="B2">B2</button>
-        <button value="B3">B3</button>
-        <button value="B4">B4</button>
-        <button value="B5">B5</button>
-        <button value="B6">B6</button>
-        <button value="B7">B7</button>
-        <button value="B8">B8</button>
-        <button value="B9">B9</button>
-        <button value="B10">B10</button>
-        <button value="B11">B11</button>
-        <button value="B12">B12</button>
-        <button value="B13">B13</button>
-        <button value="B14">B14</button>
-        <button value="B15">B15</button>
-        <button value="B16">B16</button>
-        <button value="B17">B17</button>
-        <button value="B18">B18</button>
-        <button value="B19">B19</button>
-        <button value="B20">B20</button>
-    </div>
-    </div>
-    <div class="block-container">
-    <label class="block-label">C-Block</label>
-    <div class="c-block">
-        <button value="C1">C1</button>
-        <button value="C2">C2</button>
-        <button value="C3">C3</button>
-        <button value="C4">C4</button>
-        <button value="C5">C5</button>
-        <button value="C6">C6</button>
-        <button value="C7">C7</button>
-        <button value="C8">C8</button>
-        <button value="C9">C9</button>
-        <button value="C10">C10</button>
-        <button value="C11">C11</button>
-        <button value="C12">C12</button>
-        <button value="C13">C13</button>
-        <button value="C14">C14</button>
-        <button value="C15">C15</button>
-        <button value="C16">C16</button>
-        <button value="C17">C17</button>
-        <button value="C18">C18</button>
-        <button value="C19">C19</button>
-        <button value="C20">C20</button>
-    </div>
-    </div>
-    <div class="block-container">
-    <label class="block-label">D-Block</label>
-    <div class="d-block">
-        <button value="D1">D1</button>
-        <button value="D2">D2</button>
-        <button value="D3">D3</button>
-        <button value="D4">D4</button>
-        <button value="D5">D5</button>
-        <button value="D6">D6</button>
-        <button value="D7">D7</button>
-        <button value="D8">D8</button>
-        <button value="D9">D9</button>
-        <button value="D10">D10</button>
-        <button value="D11">D11</button>
-        <button value="D12">D12</button>
-        <button value="D13">D13</button>
-        <button value="D14">D14</button>
-        <button value="D15">D15</button>
-        <button value="D16">D16</button>
-        <button value="D17">D17</button>
-        <button value="D18">D18</button>
-        <button value="D19">D19</button>
-        <button value="D20">D20</button>
-    </div>
-    </div>
-    </div>
+
+    <script>
+        const userName = document.getElementById('userName');
+        const userEmail = document.getElementById('userEmail');
+        const userAvatar = document.getElementById('userAvatar');
+        const selectionStatus = document.getElementById('selectionStatus');
+        const reserveButton = document.getElementById('reserveButton');
+
+        async function fetchCurrentUser() {
+            const apiUrls = [
+                'http://172.30.3.21/g_park/current-user.php',
+                'http://localhost/g_park/current-user.php'
+            ];
+
+            for (let index = 0; index < apiUrls.length; index += 1) {
+                try {
+                    const response = await fetch(apiUrls[index], {
+                        credentials: 'include'
+                    });
+
+                    if (response.ok) {
+                        return (await response.json()).user;
+                    }
+
+                    if (response.status === 401) {
+                        break;
+                    }
+                } catch (error) {
+                    if (index === apiUrls.length - 1) {
+                        throw error;
+                    }
+                }
+            }
+
+            const storedUser = localStorage.getItem('gparkUser');
+            return storedUser ? JSON.parse(storedUser) : null;
+        }
+
+        fetchCurrentUser().then((user) => {
+            if (!user) {
+                userName.textContent = 'Session expired';
+                userEmail.textContent = 'Please log in again.';
+                reserveButton.disabled = true;
+                return;
+            }
+
+            userName.textContent = user.name;
+            userEmail.textContent = user.email;
+            userAvatar.textContent = user.name.trim().charAt(0).toUpperCase();
+        }).catch(() => {
+            userName.textContent = 'Unable to load account';
+            userEmail.textContent = 'Please refresh the page.';
+        });
+
+        const selectedSlots = document.querySelectorAll('.block-container button');
+        selectedSlots.forEach((button) => {
+            button.addEventListener('click', () => {
+                const isSelected = button.classList.contains('selected');
+                button.classList.toggle('selected', !isSelected);
+                const selectedCount = document.querySelectorAll('.block-container button.selected').length;
+                selectionStatus.textContent = selectedCount === 0
+                    ? 'No slot selected'
+                    : `${selectedCount} slot${selectedCount === 1 ? '' : 's'} selected`;
+                reserveButton.disabled = selectedCount === 0;
+            });
+        });
+
+        reserveButton.addEventListener('click', () => {
+            selectionStatus.textContent = 'Select a slot to continue';
+        });
+    </script>
 </body>
 </html>
