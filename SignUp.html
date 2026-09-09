@@ -33,7 +33,7 @@
                 <p>Start your stress-free parking experience.</p>
             </div>
 
-            <form action="http://localhost/g_park/signup.php" method="POST" class="auth-form">
+            <form id="signupForm" class="auth-form">
                 <div class="input-group">
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" placeholder="Enter your full name" required>
@@ -46,7 +46,8 @@
 
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Create a password" required>
+                    <input type="password" id="password" name="password" placeholder="Create a password" aria-describedby="password-error" required>
+                    <p class="field-error" id="password-error" role="alert" aria-live="polite"></p>
                 </div>
 
                 <div class="input-group">
@@ -56,6 +57,8 @@
 
                 <button type="submit">Create Account</button>
 
+                <div id="signupMessage" class="login-snackbar" role="alert" aria-live="polite" aria-hidden="true"></div>
+
                 <p class="switch-text">
                     Already have an account?
                     <a href="login.html">Log in</a>
@@ -63,6 +66,107 @@
             </form>
         </section>
     </main>
+
+    <script>
+        const signupForm = document.getElementById('signupForm');
+        const passwordInput = document.querySelector('#password');
+        const confirmPasswordInput = document.querySelector('#confirm_password');
+        const passwordError = document.querySelector('#password-error');
+        const signupMessage = document.getElementById('signupMessage');
+
+        function validatePassword() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            let message = '';
+
+            if (password.length < 5) {
+                message = 'Use at least 5 characters.';
+            } else if (!/[^\p{L}\p{N}\s]/u.test(password)) {
+                message = 'Include at least 1 special character.';
+            } else if (confirmPassword && password !== confirmPassword) {
+                message = 'Passwords do not match.';
+            }
+
+            passwordError.textContent = message;
+            passwordError.hidden = !message;
+            passwordInput.classList.toggle('input-error', Boolean(message));
+
+            return !message;
+        }
+
+        function showSignupError(message) {
+            signupMessage.textContent = message;
+            signupMessage.classList.remove('is-success');
+            signupMessage.classList.add('is-visible');
+            signupMessage.setAttribute('aria-hidden', 'false');
+        }
+
+        function showSignupSuccess(message) {
+            signupMessage.textContent = message;
+            signupMessage.classList.add('is-success', 'is-visible');
+            signupMessage.setAttribute('aria-hidden', 'false');
+        }
+
+        async function fetchSignupApi(options) {
+            const apiUrls = [
+                'http://172.30.3.21/g_park/signup.php',
+                'http://localhost/g_park/signup.php'
+            ];
+
+            for (let index = 0; index < apiUrls.length; index += 1) {
+                try {
+                    return await fetch(apiUrls[index], options);
+                } catch (error) {
+                    if (index === apiUrls.length - 1) {
+                        throw error;
+                    }
+                }
+            }
+        }
+
+        signupForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Perform client-side password and match validation
+            if (!validatePassword()) {
+                passwordInput.focus();
+                return;
+            }
+
+            // Reset snackbar message
+            signupMessage.textContent = '';
+            signupMessage.classList.remove('is-visible');
+            signupMessage.setAttribute('aria-hidden', 'true');
+
+            const formData = new FormData(signupForm);
+
+            try {
+                const response = await fetchSignupApi({
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: formData.get('name'),
+                        email: formData.get('email'),
+                        password: formData.get('password'),
+                        confirm_password: formData.get('confirm_password')
+                    })
+                });
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    throw new Error(result.message || 'Signup failed.');
+                }
+
+                showSignupSuccess('Account created successfully. Opening login...');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            } catch (error) {
+                showSignupError(error.message || 'Unable to connect to the server.');
+            }
+        });
+    </script>
 </body>
 
 </html>

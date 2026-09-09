@@ -30,18 +30,21 @@
                 <p>Use your account to continue.</p>
             </div>
 
-            <form action="" class="auth-form">
+            <form id="loginForm" class="auth-form">
                 <div class="input-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" placeholder="Enter your username">
+                    <input type="email" id="username" name="email" placeholder="Enter your email" required>
                 </div>
 
                 <div class="input-group">
                     <label for="login-password">Password</label>
-                    <input type="password" id="login-password" placeholder="Enter your password">
+                    <input type="password" id="login-password" name="password" placeholder="Enter your password" aria-describedby="password-error">
+                    <p class="field-error" id="password-error" role="alert" aria-live="polite"></p>
                 </div>
 
                 <button type="submit">Login</button>
+
+                <div id="loginMessage" class="login-snackbar" role="alert" aria-live="polite" aria-hidden="true"></div>
 
                 <p class="switch-text">
                     Don’t have an account?
@@ -50,5 +53,100 @@
             </form>
         </section>
     </main>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const passwordInput = document.querySelector('#login-password');
+        const passwordError = document.querySelector('#password-error');
+        const loginMessage = document.getElementById('loginMessage');
+
+        function validatePassword() {
+            const password = passwordInput.value;
+            let message = '';
+
+            if (password.length < 5) {
+                message = 'Use at least 5 characters.';
+            } else if (!/[^\p{L}\p{N}\s]/u.test(password)) {
+                message = 'Include at least 1 special character.';
+            }
+
+            passwordError.textContent = message;
+            passwordError.hidden = !message;
+            passwordInput.classList.toggle('input-error', Boolean(message));
+
+            return !message;
+        }
+
+        function showLoginError(message) {
+            loginMessage.textContent = message;
+            loginMessage.classList.remove('is-success');
+            loginMessage.classList.add('is-visible');
+            loginMessage.setAttribute('aria-hidden', 'false');
+        }
+
+        function showLoginSuccess(message) {
+            loginMessage.textContent = message;
+            loginMessage.classList.add('is-success', 'is-visible');
+            loginMessage.setAttribute('aria-hidden', 'false');
+        }
+
+        async function fetchLoginApi(options) {
+            const apiUrls = [
+                'http://172.30.3.21/g_park/login.php',
+                'http://localhost/g_park/login.php'
+            ];
+
+            for (let index = 0; index < apiUrls.length; index += 1) {
+                try {
+                    return await fetch(apiUrls[index], options);
+                } catch (error) {
+                    if (index === apiUrls.length - 1) {
+                        throw error;
+                    }
+                }
+            }
+        }
+
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Perform client-side validation first
+            if (!validatePassword()) {
+                passwordInput.focus();
+                return;
+            }
+
+            // Reset snackbar state
+            loginMessage.textContent = '';
+            loginMessage.classList.remove('is-visible');
+            loginMessage.setAttribute('aria-hidden', 'true');
+
+            const formData = new FormData(loginForm);
+
+            try {
+                const response = await fetchLoginApi({
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: formData.get('email'),
+                        password: formData.get('password')
+                    })
+                });
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    throw new Error(result.message || 'Login failed.');
+                }
+
+                showLoginSuccess('Login successful. Opening your bookings...');
+                setTimeout(() => {
+                    window.location.href = 'book.html';
+                }, 2000);
+            } catch (error) {
+                showLoginError(error.message || 'Unable to connect to the server.');
+            }
+        });
+    </script>
 </body>
 </html>
