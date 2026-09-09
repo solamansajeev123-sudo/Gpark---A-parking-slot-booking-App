@@ -188,7 +188,6 @@
             <div class="form-field">
                 <label for="duration">Parking duration</label>
                 <select name="duration" id="duration">
-                <option value="0.5">Half an Hour</option>
                 <option value="1">One Hour</option>
                 <option value="2">Two Hours</option>
                 <option value="3">Three Hours</option>
@@ -213,7 +212,6 @@
 
         async function fetchCurrentUser() {
             const apiUrls = [
-                'http://172.30.3.21/g_park/current-user.php',
                 'http://localhost/g_park/current-user.php'
             ];
 
@@ -304,6 +302,7 @@
             }
 
             bookButton.disabled = true;
+            const bookingId = `GP${crypto.randomUUID().replaceAll('-', '').slice(0, 8).toUpperCase()}`;
 
             try {
                 const response = await fetch('http://localhost/g_park/add_booking.php', {
@@ -313,20 +312,27 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        booking_id: vehicleNumber,
+                        booking_id: bookingId,
                         slot: selectedSlot.value,
-                        vehicle_type: vehicleType === 'two-wheeler' ? 1 : 2,
+                        vehicle_type: vehicleType === 'two-wheeler' ? 0 : 1,
                         vehicle_model: vehicleModel,
-                        duration: Number.parseFloat(duration)
+                        duration: Number.parseInt(duration, 10)
                     })
                 });
 
-                const result = await response.json();
+                const responseText = await response.text();
+                let result;
+                try {
+                    result = JSON.parse(responseText);
+                } catch {
+                    throw new Error(`Booking API returned HTTP ${response.status}.`);
+                }
                 if (!response.ok || !result.success) {
                     throw new Error(result.message || 'Unable to create the booking.');
                 }
 
-                window.location.href = 'ticket.html';
+                alert(`Booking ${bookingId} created successfully.`);
+                closeBookingModal();
             } catch (error) {
                 alert(error.message);
                 bookButton.disabled = false;
