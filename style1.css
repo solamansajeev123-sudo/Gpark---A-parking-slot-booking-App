@@ -236,6 +236,14 @@ body {
     transform: translate(-50%, 0);
 }
 
+.login-snackbar.is-success {
+    border-color: #bbf7d0;
+    border-left-color: #16a34a;
+    background: #f0fdf4;
+    color: #15803d;
+    box-shadow: 0 12px 28px rgba(22, 101, 52, 0.2);
+}
+
 .switch-text {
     text-align: center;
     color: var(--muted);

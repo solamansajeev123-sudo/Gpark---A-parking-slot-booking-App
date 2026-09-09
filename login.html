@@ -59,7 +59,14 @@
 
         function showLoginError(message) {
             loginMessage.textContent = message;
+            loginMessage.classList.remove('is-success');
             loginMessage.classList.add('is-visible');
+            loginMessage.setAttribute('aria-hidden', 'false');
+        }
+
+        function showLoginSuccess(message) {
+            loginMessage.textContent = message;
+            loginMessage.classList.add('is-success', 'is-visible');
             loginMessage.setAttribute('aria-hidden', 'false');
         }
 
@@ -87,7 +94,10 @@
                     throw new Error(result.message || 'Login failed.');
                 }
 
-                window.location.href = 'book.html';
+                showLoginSuccess('Login successful. Opening your bookings...');
+                setTimeout(() => {
+                    window.location.href = 'book.html';
+                }, 2000);
             } catch (error) {
                 showLoginError(error.message || 'Unable to connect to the server.');
             }
