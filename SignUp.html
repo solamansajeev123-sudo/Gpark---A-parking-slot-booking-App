@@ -107,6 +107,23 @@
             signupMessage.setAttribute('aria-hidden', 'false');
         }
 
+        async function fetchSignupApi(options) {
+            const apiUrls = [
+                'http://172.30.3.21/g_park/signup.php',
+                'http://localhost/g_park/signup.php'
+            ];
+
+            for (let index = 0; index < apiUrls.length; index += 1) {
+                try {
+                    return await fetch(apiUrls[index], options);
+                } catch (error) {
+                    if (index === apiUrls.length - 1) {
+                        throw error;
+                    }
+                }
+            }
+        }
+
         signupForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
@@ -124,7 +141,7 @@
             const formData = new FormData(signupForm);
 
             try {
-                const response = await fetch('http://localhost/g_park/signup.php', {
+                const response = await fetchSignupApi({
                     method: 'POST',
                     credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },

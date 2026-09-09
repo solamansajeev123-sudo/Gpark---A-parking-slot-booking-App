@@ -90,6 +90,23 @@
             loginMessage.setAttribute('aria-hidden', 'false');
         }
 
+        async function fetchLoginApi(options) {
+            const apiUrls = [
+                'http://172.30.3.21/g_park/login.php',
+                'http://localhost/g_park/login.php'
+            ];
+
+            for (let index = 0; index < apiUrls.length; index += 1) {
+                try {
+                    return await fetch(apiUrls[index], options);
+                } catch (error) {
+                    if (index === apiUrls.length - 1) {
+                        throw error;
+                    }
+                }
+            }
+        }
+
         loginForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
@@ -107,7 +124,7 @@
             const formData = new FormData(loginForm);
 
             try {
-                const response = await fetch('http://localhost/g_park/login.php', {
+                const response = await fetchLoginApi({
                     method: 'POST',
                     credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
