@@ -30,7 +30,7 @@
                 <p>Use your account to continue.</p>
             </div>
 
-            <form action="http://localhost/g_park/login.php" method="POST" class="auth-form">
+            <form id="loginForm" class="auth-form">
                 <div class="input-group">
                     <label for="username">Username</label>
                     <input type="email" id="username" name="email" placeholder="Enter your email" required>
@@ -43,6 +43,8 @@
 
                 <button type="submit">Login</button>
 
+                <div id="loginMessage" class="login-snackbar" role="alert" aria-live="polite" aria-hidden="true"></div>
+
                 <p class="switch-text">
                     Don’t have an account?
                     <a href="SignUp.html">Create one</a>
@@ -50,5 +52,46 @@
             </form>
         </section>
     </main>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const loginMessage = document.getElementById('loginMessage');
+
+        function showLoginError(message) {
+            loginMessage.textContent = message;
+            loginMessage.classList.add('is-visible');
+            loginMessage.setAttribute('aria-hidden', 'false');
+        }
+
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            loginMessage.textContent = '';
+            loginMessage.classList.remove('is-visible');
+            loginMessage.setAttribute('aria-hidden', 'true');
+
+            const formData = new FormData(loginForm);
+
+            try {
+                const response = await fetch('http://localhost/g_park/login.php', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: formData.get('email'),
+                        password: formData.get('password')
+                    })
+                });
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    throw new Error(result.message || 'Login failed.');
+                }
+
+                window.location.href = 'book.html';
+            } catch (error) {
+                showLoginError(error.message || 'Unable to connect to the server.');
+            }
+        });
+    </script>
 </body>
 </html>
