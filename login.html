@@ -30,15 +30,15 @@
                 <p>Use your account to continue.</p>
             </div>
 
-            <form action="" class="auth-form">
+            <form action="http://localhost/g_park/login.php" method="POST" class="auth-form">
                 <div class="input-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" placeholder="Enter your username">
+                    <input type="email" id="username" name="email" placeholder="Enter your email" required>
                 </div>
 
                 <div class="input-group">
                     <label for="login-password">Password</label>
-                    <input type="password" id="login-password" placeholder="Enter your password">
+                    <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
                 </div>
 
                 <button type="submit">Login</button>
