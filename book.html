@@ -382,9 +382,21 @@
                     throw new Error(result.message || 'Unable to create the booking.');
                 }
 
-                alert(`Booking ${bookingId} created successfully.`);
-                closeBookingModal();
-                await loadOccupiedSlots();
+                localStorage.setItem('gparkLatestBooking', JSON.stringify({
+                    ...result.booking,
+                    vehicle_number: vehicleNumber,
+                    booked_at: new Date().toISOString()
+                }));
+                const ticketParams = new URLSearchParams({
+                    booking_id: result.booking.booking_id,
+                    slot: result.booking.slot,
+                    vehicle_number: vehicleNumber,
+                    vehicle_type: String(result.booking.vehicle_type),
+                    vehicle_model: result.booking.vehicle_model,
+                    duration: String(result.booking.duration),
+                    booked_by: result.booking.booked_by
+                });
+                window.location.href = `ticket.html?${ticketParams.toString()}`;
             } catch (error) {
                 alert(error.message);
                 bookButton.disabled = false;

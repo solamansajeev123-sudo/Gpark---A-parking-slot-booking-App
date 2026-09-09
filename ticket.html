@@ -1,240 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Ticket | GPark</title>
-    <link rel="stylesheet" href="style2.css">
-    <link rel="icon" href="images/image.png">
-    <style>
-        .ticket-shell {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-        }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Booking Confirmed | GPark</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--ink: #17221d;
+			--muted: #66736b;
+			--paper: #f7f8f3;
+			--card: #ffffff;
+			--accent: #e4663f;
+			--line: #dce3dc;
+		}
 
-        .ticket-card {
-            width: 100%;
-            max-width: 420px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid var(--line);
-            border-radius: 28px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            padding: 28px;
-        }
-
-        .ticket-top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 18px;
-        }
-
-        .ticket-num-wrap {
-            text-align: right;
-        }
-
-        .ticket-num {
-            font-size: 2.4rem;
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            color: var(--primary-dark);
-            line-height: 1;
-        }
-
-        .ticket-stub {
-            position: relative;
-            margin: 22px -28px;
-            border-top: 2px dashed var(--line);
-        }
-
-        .ticket-stub::before,
-        .ticket-stub::after {
-            content: "";
-            position: absolute;
-            top: -12px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--bg);
-            box-shadow: inset 0 0 0 1px var(--line);
-        }
-
-        .ticket-stub::before { left: -12px; }
-        .ticket-stub::after { right: -12px; }
-
-        .ticket-details {
-            display: grid;
-            gap: 16px;
-        }
-
-        .ticket-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 12px;
-        }
-
-        .ticket-row .label {
-            margin: 0;
-            font-size: 0.7rem;
-        }
-
-        .ticket-row .value {
-            font-weight: 700;
-            text-align: right;
-        }
-
-        .ticket-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 26px;
-        }
-
-        .ticket-actions .modal-btn {
-            flex: 1;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        .empty-state p {
-            color: var(--text-soft);
-            margin: 10px 0 20px;
-        }
-
-        @media print {
-            body { background: #fff; }
-            .ticket-actions { display: none; }
-            .ticket-shell { padding: 0; }
-            .ticket-card { box-shadow: none; }
-        }
-    </style>
+		* { box-sizing: border-box; }
+		body {
+			margin: 0;
+			min-height: 100vh;
+			display: grid;
+			place-items: center;
+			padding: 24px;
+			background: radial-gradient(circle at top right, #d9e8d7, transparent 42%), var(--paper);
+			color: var(--ink);
+			font-family: Georgia, 'Times New Roman', serif;
+		}
+		main { width: min(100%, 560px); }
+		.ticket {
+			overflow: hidden;
+			border: 1px solid var(--line);
+			border-radius: 8px;
+			background: var(--card);
+			box-shadow: 0 20px 60px rgba(23, 34, 29, 0.12);
+		}
+		.ticket-header { padding: 32px; background: var(--ink); color: white; }
+		.eyebrow { color: #f4ad8e; font: 700 12px/1.2 Arial, sans-serif; letter-spacing: 0.12em; text-transform: uppercase; }
+		h1 { margin: 12px 0 0; font-size: clamp(32px, 8vw, 52px); line-height: 0.95; font-weight: 400; }
+		.ticket-body { padding: 28px 32px 32px; }
+		.booking-id { margin: 0 0 24px; color: var(--muted); font: 700 13px/1.4 Arial, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+		.details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin: 0; background: var(--line); border: 1px solid var(--line); }
+		.detail { min-width: 0; padding: 16px; background: var(--card); }
+		dt { color: var(--muted); font: 700 11px/1.2 Arial, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+		dd { margin: 7px 0 0; overflow-wrap: anywhere; font-size: 19px; }
+		.actions { display: flex; gap: 12px; margin-top: 28px; }
+		a { display: inline-block; padding: 12px 16px; border-radius: 4px; font: 700 13px/1 Arial, sans-serif; text-decoration: none; }
+		.primary { background: var(--accent); color: white; }
+		.secondary { border: 1px solid var(--line); color: var(--ink); }
+		.empty { text-align: center; }
+		@media (max-width: 480px) { .ticket-header, .ticket-body { padding: 24px; } .details { grid-template-columns: 1fr; } }
+	</style>
 </head>
 <body>
-    <div class="ticket-shell">
-        <div class="ticket-card" id="ticketCard">
-            <!-- Populated by script -->
-        </div>
-    </div>
+	<main>
+		<section class="ticket" id="ticketContent" hidden>
+			<header class="ticket-header">
+				<span class="eyebrow">GPark reservation</span>
+				<h1>Booking confirmed</h1>
+			</header>
+			<div class="ticket-body">
+				<p class="booking-id">Booking ID: <strong id="bookingId"></strong></p>
+				<dl class="details">
+					<div class="detail"><dt>Parking slot</dt><dd id="slot"></dd></div>
+					<div class="detail"><dt>Vehicle number</dt><dd id="vehicleNumber"></dd></div>
+					<div class="detail"><dt>Vehicle type</dt><dd id="vehicleType"></dd></div>
+					<div class="detail"><dt>Vehicle model</dt><dd id="vehicleModel"></dd></div>
+					<div class="detail"><dt>Duration</dt><dd id="duration"></dd></div>
+					<div class="detail"><dt>Booked by</dt><dd id="bookedBy"></dd></div>
+				</dl>
+				<div class="actions">
+					<a class="primary" href="book.html">Book another slot</a>
+				</div>
+			</div>
+		</section>
+		<section class="ticket empty" id="emptyState" hidden>
+			<div class="ticket-body">
+				<h1>Booking not found</h1>
+				<p>This ticket is no longer available in this browser.</p>
+				<div class="actions"><a class="primary" href="book.html">Return to booking</a></div>
+			</div>
+		</section>
+	</main>
+	<script>
+		const savedBooking = JSON.parse(localStorage.getItem('gparkLatestBooking') || 'null');
+		const query = new URLSearchParams(window.location.search);
+		const queryBooking = query.has('booking_id') ? {
+			booking_id: query.get('booking_id'),
+			slot: query.get('slot'),
+			vehicle_number: query.get('vehicle_number'),
+			vehicle_type: query.get('vehicle_type'),
+			vehicle_model: query.get('vehicle_model'),
+			duration: query.get('duration'),
+			booked_by: query.get('booked_by')
+		} : null;
+		const booking = queryBooking || savedBooking;
+		const ticketContent = document.getElementById('ticketContent');
+		const emptyState = document.getElementById('emptyState');
 
-    <script>
-        const durationLabels = {
-            '0.5': 'Half an hour',
-            '1': 'One hour',
-            '2': 'Two hours',
-            '3': 'Three hours'
-        };
+		if (!booking) {
+			emptyState.hidden = false;
+		} else {
+			const fields = {
+				bookingId: booking.booking_id,
+				slot: booking.slot,
+				vehicleNumber: booking.vehicle_number,
+				vehicleType: Number(booking.vehicle_type) === 0 ? 'Two-wheeler' : 'Four-wheeler',
+				vehicleModel: booking.vehicle_model,
+				duration: `${booking.duration} hour${Number(booking.duration) === 1 ? '' : 's'}`,
+				bookedBy: booking.booked_by
+			};
 
-        function formatDuration(duration) {
-            const key = String(duration);
-            return durationLabels[key] || `${duration} hour${Number(duration) === 1 ? '' : 's'}`;
-        }
-
-        function formatType(type) {
-            return type === 'two-wheeler' ? 'Two-wheeler' : type === 'four-wheeler' ? 'Four-wheeler' : type || '—';
-        }
-
-        function formatBookedAt(iso) {
-            if (!iso) return '—';
-            const date = new Date(iso);
-            return date.toLocaleString(undefined, {
-                dateStyle: 'medium',
-                timeStyle: 'short'
-            });
-        }
-
-        function renderTicket(ticket) {
-            const card = document.getElementById('ticketCard');
-            card.innerHTML = `
-                <div class="ticket-top">
-                    <div>
-                        <span class="brand-pill">GPark</span>
-                        <p class="header-help">Parking ticket</p>
-                    </div>
-                    <div class="ticket-num-wrap">
-                        <span class="label">Slot / Ticket no</span>
-                        <div class="ticket-num">${ticket.ticketNo}</div>
-                    </div>
-                </div>
-
-                <div class="account-status">
-                    <span class="status-dot"></span>
-                    <span>Booking confirmed</span>
-                </div>
-
-                <div class="ticket-stub"></div>
-
-                <div class="ticket-details">
-                    <div class="ticket-row">
-                        <span class="label">Vehicle number</span>
-                        <span class="value">${ticket.vehicleNumber}</span>
-                    </div>
-                    <div class="ticket-row">
-                        <span class="label">Vehicle type</span>
-                        <span class="value">${formatType(ticket.vehicleType)}</span>
-                    </div>
-                    <div class="ticket-row">
-                        <span class="label">Vehicle model</span>
-                        <span class="value">${ticket.vehicleModel}</span>
-                    </div>
-                    <div class="ticket-row">
-                        <span class="label">Parking duration</span>
-                        <span class="value">${formatDuration(ticket.duration)}</span>
-                    </div>
-                    <div class="ticket-row">
-                        <span class="label">Booked on</span>
-                        <span class="value">${formatBookedAt(ticket.bookedAt)}</span>
-                    </div>
-                </div>
-
-                <div class="ticket-actions">
-                    <button class="modal-btn secondary-btn" id="newBooking" type="button">Book another</button>
-                    <button class="modal-btn primary-modal-btn" id="printTicket" type="button">Print ticket</button>
-                </div>
-            `;
-
-            document.getElementById('printTicket').addEventListener('click', () => window.print());
-            document.getElementById('newBooking').addEventListener('click', () => {
-                window.location.href = 'book.html';
-            });
-        }
-
-        function renderEmptyState() {
-            const card = document.getElementById('ticketCard');
-            card.innerHTML = `
-                <div class="empty-state">
-                    <span class="brand-pill">GPark</span>
-                    <p>No active ticket found. Book a slot to generate your parking ticket.</p>
-                    <button class="modal-btn primary-modal-btn" id="goBook" type="button">Book a slot</button>
-                </div>
-            `;
-            document.getElementById('goBook').addEventListener('click', () => {
-                window.location.href = 'book.html';
-            });
-        }
-
-        function loadTicket() {
-            try {
-                const stored = localStorage.getItem('gparkTicket');
-                return stored ? JSON.parse(stored) : null;
-            } catch (error) {
-                return null;
-            }
-        }
-
-        const ticket = loadTicket();
-        if (ticket && ticket.ticketNo) {
-            renderTicket(ticket);
-        } else {
-            renderEmptyState();
-        }
-    </script>
+			Object.entries(fields).forEach(([id, value]) => {
+				document.getElementById(id).textContent = value || '-';
+			});
+			ticketContent.hidden = false;
+		}
+	</script>
 </body>
 </html>
