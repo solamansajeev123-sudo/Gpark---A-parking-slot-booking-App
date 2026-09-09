@@ -5,12 +5,28 @@
     padding: 0;
     font-family: "DM Sans", sans-serif;
 }
-.slot-container{
+.slot1-container{
+    float: left;
     padding: 50px;
     display: flex;
+    height: 250px;
+    width: 600px;
     flex-direction: row;
     justify-content: flex-start;
+    align-content: flex-start;
     flex-wrap: wrap;
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+}
+.slot2-container{
+    padding: 50px;
+    height: 250px;
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-content:flex-start;
     column-gap: 0.5em;
     row-gap: 0.5em;
 }
