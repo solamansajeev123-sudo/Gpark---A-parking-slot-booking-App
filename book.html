@@ -156,7 +156,30 @@
             </div>
         </main>
     </div>
-
+    <div class="modal-container">
+        <div class="modal">
+            <h2 id="modal-header">Enter the details</h2>
+            <input type="text" placeholder="Vehicle Number"><br>
+            <div class="radio-group">
+                <label class="radio-option">
+                <input type="radio" name="vehicleType" value="two-wheeler" checked>
+                <span>Two-wheeler</span>
+                </label>
+                <label class="radio-option">
+                <input type="radio" name="vehicleType" value="four-wheeler">
+                <span>Four-wheeler</span>
+                </label>
+            </div>
+            <input type="text" placeholder="Vehicle Model"><br>
+            <select name="duration" id="duration">
+                <option value="0.5">Half an Hour</option>
+                <option value="1">One Hour</option>
+                <option value="2">Two Hours</option>
+                <option value="3">Three Hours</option>
+            </select>
+            <a href="ticket.html"><button id="book-button">Book Now</button></a>
+        </div>
+    </div>
     <script>
         const userName = document.getElementById('userName');
         const userEmail = document.getElementById('userEmail');
@@ -226,6 +249,12 @@
         reserveButton.addEventListener('click', () => {
             selectionStatus.textContent = 'Select a slot to continue';
         });
+
+
+        reserveButton.onclick=function(){
+            const modal=document.querySelector(".modal-container");
+            modal.style.display='flex';
+        }
     </script>
 </body>
 </html>
