@@ -25,17 +25,29 @@ body{
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
+.register-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1.5em;
+    height: 600px;
+    width: 450px;
+    border-radius: 8px;
+    box-shadow: 3px 2px 2px 4px rgba(0, 0, 0,0.1);
+    background-color: transparent;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
 input{
     width: 350px;
     border-radius: 8px;
-    border: 0.5px solid blueviolet;
+    border: 1px solid #64748B;
     height: 40px;
     color: #64748B;
 }
-input::selection{
-    border-radius: 8px;
-    border: 0.5px solid blueviolet;
-    color: #64748B;
+input:focus{
+    outline-color: blueviolet;
 }
 button{
     width: 350px;
@@ -52,7 +64,7 @@ button:hover{
     color: blueviolet;
     border: 2px solid blueviolet;
 }
-#login-header{
+#login-header,#signup-header{
     font-size: 25px;
     color: #0F172A;
 }
