@@ -203,7 +203,7 @@ button {
     display: inline-block;
 }
 
-.dot.open { background: var(--success); }
+.dot.open { background: white; border: 1px solid gray; }
 .dot.selected-legend { background: var(--primary); box-shadow: 0 0 0 4px rgba(103, 88, 243, 0.16); }
 .dot.busy { background: #cbd5e1; }
 
