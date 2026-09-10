@@ -122,20 +122,7 @@
         }
 
         async function fetchLoginApi(options) {
-            const apiUrls = [
-                'http://172.30.3.21/g_park/login.php',
-                'http://localhost/g_park/login.php'
-            ];
-
-            for (let index = 0; index < apiUrls.length; index += 1) {
-                try {
-                    return await fetch(apiUrls[index], options);
-                } catch (error) {
-                    if (index === apiUrls.length - 1) {
-                        throw error;
-                    }
-                }
-            }
+            return fetch('http://localhost/g_park/login.php', options);
         }
 
         loginForm.addEventListener('submit', async (event) => {
@@ -174,7 +161,7 @@
                 showLoginSuccess('Login successful. Opening your bookings...');
                 setTimeout(() => {
                     window.location.href = 'book.html';
-                }, 2000);
+                }, 500);
             } catch (error) {
                 showLoginError(error.message || 'Unable to connect to the server.');
             }

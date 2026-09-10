@@ -144,20 +144,7 @@
         }
 
         async function fetchSignupApi(options) {
-            const apiUrls = [
-                'http://172.30.3.21/g_park/signup.php',
-                'http://localhost/g_park/signup.php'
-            ];
-
-            for (let index = 0; index < apiUrls.length; index += 1) {
-                try {
-                    return await fetch(apiUrls[index], options);
-                } catch (error) {
-                    if (index === apiUrls.length - 1) {
-                        throw error;
-                    }
-                }
-            }
+            return fetch('http://localhost/g_park/signup.php', options);
         }
 
         signupForm.addEventListener('submit', async (event) => {
@@ -197,7 +184,7 @@
                 showSignupSuccess('Account created successfully. Opening login...');
                 setTimeout(() => {
                     window.location.href = 'login.html';
-                }, 2000);
+                }, 500);
             } catch (error) {
                 showSignupError(error.message || 'Unable to connect to the server.');
             }
